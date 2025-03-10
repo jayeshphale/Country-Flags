@@ -1,57 +1,49 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import styles from "./Countries.module.css"
+import { countriesData } from "../api/api"; // Import API function
+import styles from "./Countries.module.css";
 
 export default function Countries() {
-    const [data, setData] = useState([]);
-    const [loading, setLoading] = useState(true);
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const fetchCountriesData = async () => {
-            try {
-                const res = await axios.get(`https://restcountries.com/v3.1/all`);
-                setData(res.data);
-                setLoading(false);
-            } catch (error) {
-                console.error('Error fetching countries data:', error);
-            }
-        };
+  useEffect(() => {
+    const fetchCountriesData = async () => {
+      setLoading(true);
+      const result = await countriesData();
+      setData(result);
+      setLoading(false);
+    };
 
-        fetchCountriesData();
-    }, []);
+    fetchCountriesData();
+  }, []);
 
-    return (
-        <>
-            {loading ? (
-                <p>Loading...</p>
-            ) : (
-                <>
-                <div>
-                    <h3>countries flags an thier names</h3>
-                </div>
-                    {data.length > 0 ? (
-                        <><div className={styles.card}>
-                            {data.map((country, index) => (
-                                <div key={index} >
-                                    {country.flags && country.flags.png ? (
-                                        <img 
-                                            src={country.flags.png} 
-                                            alt={`Flag of ${country.name.common}`}  
-                                            className={styles.img}
-                                        />
-                                    ) : (
-                                        <p>No flag available for this country</p>
-                                    )}
-                                    <div><h2>{country.name.common}</h2></div>
-                                </div>
-                            ))}
-                         </div>   
-                        </>
-                    ) : (
-                        <p>No data available</p>
-                    )}
-                </>
-            )}
-        </>
-    );
+  return (
+    <div className={styles.container}>
+      <h3>Countries and Their Flags</h3>
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
+        <div className={styles.cardContainer}>
+          {data.length > 0 ? (
+            data.map((country, index) => (
+              <div key={index} className={styles.card}>
+                {country.flags?.png ? (
+                  <img
+                    src={country.flags.png}
+                    alt={`Flag of ${country.name.common}`}
+                    className={styles.img}
+                  />
+                ) : (
+                  <p>No flag available</p>
+                )}
+                <h2>{country.name.common}</h2>
+              </div>
+            ))
+          ) : (
+            <p>No data available</p>
+          )}
+        </div>
+      )}
+    </div>
+  );
 }

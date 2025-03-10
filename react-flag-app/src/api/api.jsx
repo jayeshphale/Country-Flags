@@ -1,12 +1,13 @@
-import axios from "axios"
+import axios from "axios";
 
-export const BACKENDPOINT="https://restcountries.com/"
+export const BACKENDPOINT = "https://restcountries.com/v3.1/all";
 
-export default async function countriesData(){
-    try{
-        const response= await axios.get(`${BACKENDPOINT}/v3.1/all`)
-        return response.data
-    }catch(e){
-        console.error(e)
-    }
+export async function countriesData() {
+  try {
+    const response = await axios.get(BACKENDPOINT);
+    return response.data;
+  } catch (error) {
+    console.error("API Fetch Error:", error);
+    return []; // Return empty array to avoid UI breaking
+  }
 }
