@@ -1,0 +1,29 @@
+{
+  "name": "country-flags",
+  "version": "1.0.0",
+  "description": "An interface such that it displays a grid of country flags and their names, by retrieving data from the given API endpoint.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jayeshphale/Country-Flags.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jayeshphale/Country-Flags/issues"
+  },
+  "homepage": "https://github.com/jayeshphale/Country-Flags#readme",
+  
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/user-event": "^14.6.1",
+    "react-scripts": "latest"
+  }
+}
